@@ -42,9 +42,6 @@ app.add_middleware(
 
 @app.post("/user", status_code=status.HTTP_201_CREATED)
 async def create_user(user:Annotated[User, Form()]):
-    # new_id = len(user_db.keys()) + 1  
-    # if new_id in user_db:
-    #     raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="ID conflict, please try again.")
     for user_profile in user_db.values():
         if user_profile["email"] == user.Email:
             raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail = "user already exist")
@@ -57,7 +54,3 @@ async def create_user(user:Annotated[User, Form()]):
 @app.get("/user", status_code=status.HTTP_200_OK)
 async def get_user():
     return user_db
-
-
-# is there a way to check if an existing Id 
-# in a dictionary storage is equal to new id
