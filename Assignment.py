@@ -50,7 +50,3 @@ async def create_user(user:Annotated[User, Form()]):
     user_db[new_id] = user.model_dump()
         
     return "Profile created successfully"
-
-@app.get("/user", status_code=status.HTTP_200_OK)
-async def get_user():
-    return user_db
